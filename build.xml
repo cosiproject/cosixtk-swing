@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<project default="all">
+	<property name="build.dir" value="build" />
+	<property name="src" value="src" />
+	<property name="output.file" value="cosixtk-swing.jar" />
+	<property name="debug" value="on" />
+
+	<target name="init">
+		<delete dir="${build.dir}" />
+		<mkdir dir="${build.dir}" />
+	</target>
+
+	<target name="compile" depends="init">
+		<javac srcdir="${src}" destdir="${build.dir}" debug="${debug}">
+			<classpath path="libs/log4j.jar" />
+			<classpath path="../CosiTK/cositk.jar" />
+			<classpath path="../CosiXTK/cosixtk.jar" />
+		</javac>
+	</target>
+
+	<target name="manifest" depends="compile">
+
+	</target>
+
+	<target name="pack" depends="manifest">
+		<jar destfile="${output.file}" basedir="${build.dir}">
+			<fileset dir="${build.dir}/">
+			</fileset>
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="all" depends="pack">
+
+	</target>
+</project>
